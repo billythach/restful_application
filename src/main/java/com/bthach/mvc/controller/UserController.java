@@ -3,9 +3,7 @@ package com.bthach.mvc.controller;
 import com.bthach.persistence.entity.User;
 import com.bthach.persistence.entity.UserType;
 import com.bthach.service.UserService;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,7 @@ public class UserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
-    public List<User>  listUsersJson(ModelMap model) throws JSONException {
+    public List<User> listUsersJson(ModelMap model) throws JSONException {
         List<User> all = userService.getAll();
         return all;
     }
@@ -48,20 +46,20 @@ public class UserController {
     public ResponseEntity<User> createUserByMultiParams(@RequestParam("lastName") String lastName, @RequestParam("firstName") String firstName, @RequestParam("email") String email) {
         User user = new User(firstName, lastName, email);
         user = userService.save(user);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/add/m3", method = RequestMethod.POST)
     public ResponseEntity<User> createUserByMultiParamsWithEnum(@RequestParam("lastName") String lastName, @RequestParam("firstName") String firstName, @RequestParam("email") String email, @RequestParam("userType") UserType type) {
         User user = new User(firstName, lastName, email, type);
         user = userService.save(user);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/add/m4", method = RequestMethod.POST)
     public ResponseEntity<User> createUserByRequestBody(User user) {
         user = userService.save(user);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
 
     }
 
@@ -72,7 +70,7 @@ public class UserController {
             try {
                 InputStream input = userFile.getInputStream();
                 User user = userService.save(input);
-                return new ResponseEntity<User>(user, HttpStatus.CREATED);
+                return new ResponseEntity<>(user, HttpStatus.CREATED);
             } catch (Exception e) {
                 throw new IllegalArgumentException("File '" + userFile.getOriginalFilename() + "' is not valid (only Json format is allowed).");
             }

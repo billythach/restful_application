@@ -86,16 +86,16 @@
             });
         }
 
-       $.getJSON('http://localhost:8080/api/users', listUser)
+        $.getJSON('http://localhost:8080/api/users', listUser)
 
-       $('#userForm').submit(function (e) {
+        $('#userForm').submit(function (e) {
             var lastNameValue = $('#lastName').val();
             var firstNameValue = $('#firstName').val();
             var emailValue = $('#email').val();
 
             console.log(lastNameValue + ',' + firstNameValue + ',' + emailValue);
 
-           var addUser = $.ajax({
+            var addUser = $.ajax({
                 method: 'POST',
                 url: "http://localhost:8080/api/user/add/m1",
                 contentType: 'application/json',
@@ -104,7 +104,7 @@
 
             e.preventDefault(); // prevent actual form submit and page reload
 
-            addUser.done(function(msg) {
+            addUser.done(function (msg) {
                 $('#lastName').val('');
                 $('#firstName').val('');
                 $('#email').val('');
